@@ -1,0 +1,88 @@
+#: import C kivy.utils.get_color_from_hex
+
+<TEXTINPUT@TextInput>:
+    multiline: False
+    write_tab: False
+    size_hint: 1, None
+    height: 45
+    padding_y: (self.height - self.line_height)/2
+#    halign: 'center'
+#    background_color: (.06, .45, .45, .2)
+#    cursor_color: C("#fffff")
+
+
+<MainWindow>:
+    id: main_window
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    space_x: self.size[0]/7
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: (.06, .45, .45, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        size_hint_y: None
+        height: 80
+
+        Label:
+            text: "CAPACITY BUILDING CONFERENCE"
+            bold: True
+            font_size: 40
+#            font_name: "fonts/ComicSansMS3.ttf"
+    Label:
+        text:
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: main_window.space_x, 10
+#        size_hint_y: .50
+#        height: 100
+        spacing: "10dp"
+        TEXTINPUT:
+            id: participant_name
+            hint_text: "Name"
+        TEXTINPUT:
+            id: contact
+            hint_text: "Contact"
+        TEXTINPUT:
+            id: email
+            hint_text: "Email"
+        TEXTINPUT:
+            id: location
+            hint_text: "Location"
+            on_text_validate: root.save_data()
+    BoxLayout:
+        size_hint_y: None
+        height: 70
+        padding: main_window.space_x, 10
+        Button:
+            id: submit
+            text: "Submit"
+#            font_size: 20
+            background_color: (.06, .45, .45, 1)
+            background_normal: ""
+            on_release: root.save_data()
+    Label:
+        text: ''
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: (.06, .45, .45, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        size_hint_y: None
+        height: 30
+
+        Label:
+            text: "Kweku-Annan 2022"
