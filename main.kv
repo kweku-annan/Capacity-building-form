@@ -1,4 +1,11 @@
 #: import C kivy.utils.get_color_from_hex
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+WindowManager:
+    transition: NoTransition()
+#    MainWindow:
+    StartWindow:
+    MainWindow:
 
 <TEXTINPUT@TextInput>:
     multiline: False
@@ -11,7 +18,99 @@
 #    cursor_color: C("#fffff")
 
 
+
+<StartWindow>:
+    name: "start_window"
+#    transition: NoTransition
+    id: start_window
+    orientation: "vertical"
+#    spacing: "10dp"
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    win_x: self.size[0]/7
+
+    BoxLayout:
+#        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba: (.06, .45, .45, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        size_hint_y: None
+        height: 80
+
+        Label:
+            text: "CAPACITY BUILDING CONFERENCE"
+            bold: True
+            font_size: 40
+    BoxLayout:
+        orientation: "vertical"
+        size_hint_y: None
+        height: 80
+        padding_y: 10
+        Label:
+            text: "Conference Registration"
+            bold: True
+            font_size: 40
+            color: 0, 0, 0, 1
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: start_window.win_x, 10
+        height: 20
+        spacing: "10dp"
+#        canvas.before:
+#            Color:
+#                rgba: 0,0,0,1
+#            Rectangle:
+#                size: self.size
+#                pos: self.pos
+        AnchorLayout:
+            TEXTINPUT:
+                id: school_name
+                size_hint_x: None
+                width: 400
+                hint_text: "Enter School's Name"
+        AnchorLayout:
+            BoxLayout:
+                size_hint: .8, 1
+                padding: start_window.win_x, 10
+                Button:
+                    id: submit
+    #                size_hint_x: .2
+                    text: "Done"
+        #            font_size: 20
+                    background_color: (.06, .45, .45, 1)
+                    background_normal: ""
+                    on_release:
+                        app.root.current = "main_window"
+#                        root.manager.transition = NoTransition
+                        root.manager.transition.direction = "left"
+
+    Label:
+        text: ''
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: (.06, .45, .45, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        size_hint_y: None
+        height: 30
+        Label:
+            text: "Kweku-Annan 2022"
+
+
 <MainWindow>:
+    name: "main_window"
     id: main_window
     orientation: 'vertical'
     canvas.before:
@@ -86,3 +185,5 @@
 
         Label:
             text: "Kweku-Annan 2022"
+
+

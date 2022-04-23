@@ -6,17 +6,19 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang.builder import Builder
 from kivy.core.window import Window
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 
 # TODO 1: Search for how you can set a default title for the app.
 
 Window.size = (800, 600)
 Window.minimum_width, Window.minimum_height = Window.size
-# Window.title = "Data Collection App"
-
-Builder.load_file('main.kv')
 
 
-class MainWindow(BoxLayout):
+class StartWindow(BoxLayout, Screen):
+    pass
+
+
+class MainWindow(BoxLayout, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -44,7 +46,7 @@ class MainWindow(BoxLayout):
         # Creating the file and its entries.
 
         file_name = "test_file"
-        file_path = f"forms_data/{file_name}"  # Setting the file name
+        file_path = f"data/{file_name}"  # Setting the file name
 
         data_dict = {
             "First Name": [first_name.title()],
@@ -67,10 +69,18 @@ class MainWindow(BoxLayout):
         # if_sheet_exists="overlay") as writer: data.to_excel(writer, sheet_name=f"{file_name}")
 
 
+class WindowManager(ScreenManager):
+    pass
+
+
+kv = Builder.load_file('main.kv')
+
+
 class DataCollectionApp(App):
     def build(self):
         self.title = "Data Collector"
-        return MainWindow()
+        # return MainWindow()
+        return kv
 
 
 if __name__ == "__main__":
