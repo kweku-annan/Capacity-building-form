@@ -7,6 +7,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang.builder import Builder
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
+from kivy.clock import Clock
 
 # TODO 1: Search for how you can set a default title for the app.
 
@@ -19,8 +20,7 @@ class StartWindow(BoxLayout, Screen):
 
 
 class MainWindow(BoxLayout, Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    # def get_start_screen_text_input(self):
 
     def clear(self):
         self.ids.participant_name.text = ""
@@ -41,12 +41,15 @@ class MainWindow(BoxLayout, Screen):
         first_name = name.split(" ")[0]
         surname = ""
         if len(name.split(" ")) - 1 > 0:
-            surname = name.split(" ")[1]
+            surname = name.split(" ")[-1]
 
         # Creating the file and its entries.
 
-        file_name = "test_file"
-        file_path = f"data/{file_name}"  # Setting the file name
+        ref_to_other_screen = self.manager.get_screen('start_window')
+        file_name = ref_to_other_screen.ids.school_name.text
+        # file_name = self.manager.ids.start_window.ids.school_name.text
+        # print(file_name)
+        file_path = f"data/{file_name}.csv"  # Setting the file name
 
         data_dict = {
             "First Name": [first_name.title()],
@@ -59,7 +62,7 @@ class MainWindow(BoxLayout, Screen):
         # print(data.head())
 
         with open(file_path, "a") as file:
-            data.to_csv(f"{file}.csv", mode='a', header=file.tell() == 0)
+            data.to_csv(f"{file_path}", mode='a', header=file.tell() == 0)
 
         self.clear()
         # if os.path.isfile(f"{file_path}.xlsx") is False or os.path.isfile(f"{file_name}.csv") is False:
