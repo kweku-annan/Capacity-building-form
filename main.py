@@ -37,7 +37,6 @@ class MainWindow(BoxLayout, Screen):
         email = self.ids.email.text
         location = self.ids.location.text
 
-        # print(f"{name}'s contact is {contact}, email is {email} and stays at {location}")
         first_name = name.split(" ")[0]
         surname = ""
         if len(name.split(" ")) - 1 > 0:
@@ -47,8 +46,7 @@ class MainWindow(BoxLayout, Screen):
 
         ref_to_other_screen = self.manager.get_screen('start_window')
         file_name = ref_to_other_screen.ids.school_name.text
-        # file_name = self.manager.ids.start_window.ids.school_name.text
-        # print(file_name)
+
         file_path = f"data/{file_name}.csv"  # Setting the file name
 
         data_dict = {
